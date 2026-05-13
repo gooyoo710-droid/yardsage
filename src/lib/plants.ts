@@ -1,0 +1,336 @@
+export type USDAZone = '3a' | '3b' | '4a' | '4b' | '5a' | '5b' | '6a' | '6b' | '7a' | '7b' | '8a' | '8b' | '9a' | '9b' | '10a' | '10b' | '11a' | '11b' | '12a' | '12b' | '13a' | '13b'
+
+export type ClimateType = 'continental' | 'humid_subtropical' | 'semi_arid' | 'arid' | 'mediterranean' | 'oceanic' | 'tropical' | 'subarctic'
+
+export interface StateClimate {
+  state: string
+  abbreviation: string
+  zones: USDAZone[]
+  climate: ClimateType
+  avgRainfall: number
+  avgTemp: { summer: number; winter: number }
+  sunHours: number
+}
+
+export interface Plant {
+  id: string
+  name: string
+  scientificName: string
+  type: 'tree' | 'shrub' | 'perennial' | 'annual' | 'grass' | 'groundcover' | 'vine'
+  zones: USDAZone[]
+  climates: ClimateType[]
+  waterNeeds: 'low' | 'moderate' | 'high'
+  sunlight: 'full_sun' | 'part_shade' | 'full_shade'
+  nativeRegions: string[]
+  bloomSeason?: string
+  height: string
+  maintenance: 'low' | 'moderate' | 'high'
+  description: string
+  benefits: string[]
+  imageKeyword: string
+}
+
+export const STATE_CLIMATES: StateClimate[] = [
+  { state: 'Alabama', abbreviation: 'AL', zones: ['7a', '7b', '8a', '8b'], climate: 'humid_subtropical', avgRainfall: 58, avgTemp: { summer: 90, winter: 45 }, sunHours: 5.5 },
+  { state: 'Alaska', abbreviation: 'AK', zones: ['3a', '3b', '4a', '4b'], climate: 'subarctic', avgRainfall: 22, avgTemp: { summer: 65, winter: 5 }, sunHours: 3.5 },
+  { state: 'Arizona', abbreviation: 'AZ', zones: ['5a', '6a', '7a', '8a', '9a', '10a'], climate: 'arid', avgRainfall: 13, avgTemp: { summer: 105, winter: 55 }, sunHours: 7.5 },
+  { state: 'Arkansas', abbreviation: 'AR', zones: ['6b', '7a', '7b', '8a'], climate: 'humid_subtropical', avgRainfall: 50, avgTemp: { summer: 92, winter: 40 }, sunHours: 5.5 },
+  { state: 'California', abbreviation: 'CA', zones: ['5a', '6a', '7a', '8a', '9a', '10a', '11a'], climate: 'mediterranean', avgRainfall: 22, avgTemp: { summer: 85, winter: 48 }, sunHours: 6.5 },
+  { state: 'Colorado', abbreviation: 'CO', zones: ['3b', '4a', '5a', '5b', '6a'], climate: 'semi_arid', avgRainfall: 17, avgTemp: { summer: 88, winter: 30 }, sunHours: 6.5 },
+  { state: 'Connecticut', abbreviation: 'CT', zones: ['5b', '6a', '6b', '7a'], climate: 'continental', avgRainfall: 47, avgTemp: { summer: 82, winter: 28 }, sunHours: 4.8 },
+  { state: 'Delaware', abbreviation: 'DE', zones: ['6b', '7a', '7b'], climate: 'continental', avgRainfall: 45, avgTemp: { summer: 85, winter: 35 }, sunHours: 5.0 },
+  { state: 'Florida', abbreviation: 'FL', zones: ['8a', '8b', '9a', '9b', '10a', '10b', '11a'], climate: 'tropical', avgRainfall: 54, avgTemp: { summer: 92, winter: 62 }, sunHours: 6.5 },
+  { state: 'Georgia', abbreviation: 'GA', zones: ['6a', '7a', '7b', '8a', '8b', '9a'], climate: 'humid_subtropical', avgRainfall: 50, avgTemp: { summer: 91, winter: 44 }, sunHours: 5.5 },
+  { state: 'Hawaii', abbreviation: 'HI', zones: ['9b', '10a', '10b', '11a', '11b', '12a', '13a'], climate: 'tropical', avgRainfall: 63, avgTemp: { summer: 85, winter: 73 }, sunHours: 7.0 },
+  { state: 'Idaho', abbreviation: 'ID', zones: ['4a', '5a', '5b', '6a', '6b'], climate: 'semi_arid', avgRainfall: 19, avgTemp: { summer: 90, winter: 30 }, sunHours: 6.0 },
+  { state: 'Illinois', abbreviation: 'IL', zones: ['5a', '5b', '6a', '6b'], climate: 'continental', avgRainfall: 38, avgTemp: { summer: 86, winter: 26 }, sunHours: 4.8 },
+  { state: 'Indiana', abbreviation: 'IN', zones: ['5b', '6a', '6b'], climate: 'continental', avgRainfall: 41, avgTemp: { summer: 85, winter: 28 }, sunHours: 4.8 },
+  { state: 'Iowa', abbreviation: 'IA', zones: ['4b', '5a', '5b', '6a'], climate: 'continental', avgRainfall: 34, avgTemp: { summer: 85, winter: 18 }, sunHours: 5.0 },
+  { state: 'Kansas', abbreviation: 'KS', zones: ['5b', '6a', '6b', '7a'], climate: 'semi_arid', avgRainfall: 28, avgTemp: { summer: 95, winter: 30 }, sunHours: 6.0 },
+  { state: 'Kentucky', abbreviation: 'KY', zones: ['5b', '6a', '6b', '7a'], climate: 'continental', avgRainfall: 47, avgTemp: { summer: 87, winter: 35 }, sunHours: 5.0 },
+  { state: 'Louisiana', abbreviation: 'LA', zones: ['8a', '8b', '9a', '9b'], climate: 'humid_subtropical', avgRainfall: 60, avgTemp: { summer: 92, winter: 52 }, sunHours: 5.5 },
+  { state: 'Maine', abbreviation: 'ME', zones: ['3b', '4a', '4b', '5a', '5b', '6a'], climate: 'continental', avgRainfall: 44, avgTemp: { summer: 78, winter: 18 }, sunHours: 4.5 },
+  { state: 'Maryland', abbreviation: 'MD', zones: ['5b', '6a', '6b', '7a', '7b', '8a'], climate: 'continental', avgRainfall: 44, avgTemp: { summer: 87, winter: 34 }, sunHours: 5.0 },
+  { state: 'Massachusetts', abbreviation: 'MA', zones: ['5a', '5b', '6a', '6b', '7a'], climate: 'continental', avgRainfall: 47, avgTemp: { summer: 81, winter: 27 }, sunHours: 4.8 },
+  { state: 'Michigan', abbreviation: 'MI', zones: ['4a', '4b', '5a', '5b', '6a', '6b'], climate: 'continental', avgRainfall: 32, avgTemp: { summer: 81, winter: 22 }, sunHours: 4.5 },
+  { state: 'Minnesota', abbreviation: 'MN', zones: ['3a', '3b', '4a', '4b', '5a'], climate: 'continental', avgRainfall: 27, avgTemp: { summer: 83, winter: 8 }, sunHours: 4.8 },
+  { state: 'Mississippi', abbreviation: 'MS', zones: ['7a', '7b', '8a', '8b', '9a'], climate: 'humid_subtropical', avgRainfall: 56, avgTemp: { summer: 92, winter: 46 }, sunHours: 5.5 },
+  { state: 'Missouri', abbreviation: 'MO', zones: ['5b', '6a', '6b', '7a'], climate: 'continental', avgRainfall: 42, avgTemp: { summer: 89, winter: 32 }, sunHours: 5.2 },
+  { state: 'Montana', abbreviation: 'MT', zones: ['3a', '3b', '4a', '4b', '5a', '5b'], climate: 'semi_arid', avgRainfall: 15, avgTemp: { summer: 85, winter: 22 }, sunHours: 5.5 },
+  { state: 'Nebraska', abbreviation: 'NE', zones: ['4b', '5a', '5b', '6a'], climate: 'semi_arid', avgRainfall: 23, avgTemp: { summer: 90, winter: 22 }, sunHours: 5.8 },
+  { state: 'Nevada', abbreviation: 'NV', zones: ['4a', '5a', '6a', '7a', '8a', '9a'], climate: 'arid', avgRainfall: 9, avgTemp: { summer: 105, winter: 38 }, sunHours: 7.2 },
+  { state: 'New Hampshire', abbreviation: 'NH', zones: ['3b', '4a', '4b', '5a', '5b', '6a'], climate: 'continental', avgRainfall: 44, avgTemp: { summer: 80, winter: 20 }, sunHours: 4.5 },
+  { state: 'New Jersey', abbreviation: 'NJ', zones: ['5b', '6a', '6b', '7a', '7b'], climate: 'continental', avgRainfall: 46, avgTemp: { summer: 85, winter: 32 }, sunHours: 5.0 },
+  { state: 'New Mexico', abbreviation: 'NM', zones: ['5a', '5b', '6a', '6b', '7a', '8a', '9a'], climate: 'arid', avgRainfall: 14, avgTemp: { summer: 95, winter: 35 }, sunHours: 7.5 },
+  { state: 'New York', abbreviation: 'NY', zones: ['3b', '4a', '4b', '5a', '5b', '6a', '6b', '7a'], climate: 'continental', avgRainfall: 41, avgTemp: { summer: 82, winter: 26 }, sunHours: 4.8 },
+  { state: 'North Carolina', abbreviation: 'NC', zones: ['5b', '6a', '6b', '7a', '7b', '8a'], climate: 'humid_subtropical', avgRainfall: 50, avgTemp: { summer: 88, winter: 40 }, sunHours: 5.5 },
+  { state: 'North Dakota', abbreviation: 'ND', zones: ['3a', '3b', '4a', '4b'], climate: 'continental', avgRainfall: 17, avgTemp: { summer: 84, winter: 10 }, sunHours: 5.2 },
+  { state: 'Ohio', abbreviation: 'OH', zones: ['5a', '5b', '6a', '6b'], climate: 'continental', avgRainfall: 39, avgTemp: { summer: 82, winter: 28 }, sunHours: 4.8 },
+  { state: 'Oklahoma', abbreviation: 'OK', zones: ['6a', '6b', '7a', '7b', '8a'], climate: 'semi_arid', avgRainfall: 36, avgTemp: { summer: 95, winter: 38 }, sunHours: 6.2 },
+  { state: 'Oregon', abbreviation: 'OR', zones: ['4a', '5a', '6a', '7a', '8a', '9a', '9b'], climate: 'oceanic', avgRainfall: 43, avgTemp: { summer: 80, winter: 42 }, sunHours: 5.0 },
+  { state: 'Pennsylvania', abbreviation: 'PA', zones: ['5a', '5b', '6a', '6b', '7a'], climate: 'continental', avgRainfall: 42, avgTemp: { summer: 83, winter: 28 }, sunHours: 4.8 },
+  { state: 'Rhode Island', abbreviation: 'RI', zones: ['6a', '6b', '7a'], climate: 'continental', avgRainfall: 47, avgTemp: { summer: 82, winter: 30 }, sunHours: 4.8 },
+  { state: 'South Carolina', abbreviation: 'SC', zones: ['7a', '7b', '8a', '8b', '9a'], climate: 'humid_subtropical', avgRainfall: 49, avgTemp: { summer: 91, winter: 44 }, sunHours: 5.5 },
+  { state: 'South Dakota', abbreviation: 'SD', zones: ['3b', '4a', '4b', '5a', '5b'], climate: 'semi_arid', avgRainfall: 18, avgTemp: { summer: 86, winter: 18 }, sunHours: 5.5 },
+  { state: 'Tennessee', abbreviation: 'TN', zones: ['5b', '6a', '6b', '7a', '7b'], climate: 'humid_subtropical', avgRainfall: 52, avgTemp: { summer: 89, winter: 40 }, sunHours: 5.2 },
+  { state: 'Texas', abbreviation: 'TX', zones: ['6a', '7a', '7b', '8a', '8b', '9a', '9b'], climate: 'semi_arid', avgRainfall: 28, avgTemp: { summer: 98, winter: 45 }, sunHours: 6.8 },
+  { state: 'Utah', abbreviation: 'UT', zones: ['4a', '5a', '5b', '6a', '6b', '7a', '8a'], climate: 'arid', avgRainfall: 13, avgTemp: { summer: 95, winter: 30 }, sunHours: 7.0 },
+  { state: 'Vermont', abbreviation: 'VT', zones: ['3b', '4a', '4b', '5a', '5b'], climate: 'continental', avgRainfall: 43, avgTemp: { summer: 78, winter: 16 }, sunHours: 4.5 },
+  { state: 'Virginia', abbreviation: 'VA', zones: ['5a', '5b', '6a', '6b', '7a', '7b', '8a'], climate: 'continental', avgRainfall: 44, avgTemp: { summer: 87, winter: 36 }, sunHours: 5.2 },
+  { state: 'Washington', abbreviation: 'WA', zones: ['4a', '5a', '6a', '7a', '8a', '8b', '9a'], climate: 'oceanic', avgRainfall: 39, avgTemp: { summer: 78, winter: 42 }, sunHours: 4.8 },
+  { state: 'West Virginia', abbreviation: 'WV', zones: ['5a', '5b', '6a', '6b'], climate: 'continental', avgRainfall: 44, avgTemp: { summer: 82, winter: 30 }, sunHours: 4.8 },
+  { state: 'Wisconsin', abbreviation: 'WI', zones: ['3b', '4a', '4b', '5a', '5b'], climate: 'continental', avgRainfall: 31, avgTemp: { summer: 80, winter: 16 }, sunHours: 4.8 },
+  { state: 'Wyoming', abbreviation: 'WY', zones: ['3a', '3b', '4a', '4b', '5a', '5b'], climate: 'semi_arid', avgRainfall: 13, avgTemp: { summer: 85, winter: 20 }, sunHours: 6.5 },
+]
+
+export const PLANTS: Plant[] = [
+  {
+    id: 'eastern-redbud',
+    name: 'Eastern Redbud',
+    scientificName: 'Cercis canadensis',
+    type: 'tree',
+    zones: ['4b', '5a', '5b', '6a', '6b', '7a', '7b', '8a', '8b', '9a'],
+    climates: ['continental', 'humid_subtropical'],
+    waterNeeds: 'moderate',
+    sunlight: 'part_shade',
+    nativeRegions: ['Eastern US'],
+    bloomSeason: 'Spring',
+    height: '20-30 ft',
+    maintenance: 'low',
+    description: 'Stunning spring bloomer with magenta-pink flowers that appear before leaves.',
+    benefits: ['Pollinator friendly', 'Native species', 'Four-season interest'],
+    imageKeyword: 'eastern redbud tree flowers',
+  },
+  {
+    id: 'knockout-rose',
+    name: "Knockout Rose",
+    scientificName: 'Rosa Radrazz',
+    type: 'shrub',
+    zones: ['4a', '4b', '5a', '5b', '6a', '6b', '7a', '7b', '8a', '8b', '9a', '9b'],
+    climates: ['continental', 'humid_subtropical', 'semi_arid'],
+    waterNeeds: 'moderate',
+    sunlight: 'full_sun',
+    nativeRegions: ['Hybrid'],
+    bloomSeason: 'Spring-Fall',
+    height: '3-4 ft',
+    maintenance: 'low',
+    description: 'Disease-resistant rose that blooms continuously from spring to frost.',
+    benefits: ['Low maintenance', 'Long bloom period', 'Disease resistant'],
+    imageKeyword: 'knockout rose bush red',
+  },
+  {
+    id: 'black-eyed-susan',
+    name: 'Black-Eyed Susan',
+    scientificName: 'Rudbeckia hirta',
+    type: 'perennial',
+    zones: ['3a', '3b', '4a', '4b', '5a', '5b', '6a', '6b', '7a', '7b', '8a', '8b', '9a'],
+    climates: ['continental', 'humid_subtropical', 'semi_arid'],
+    waterNeeds: 'low',
+    sunlight: 'full_sun',
+    nativeRegions: ['North America'],
+    bloomSeason: 'Summer-Fall',
+    height: '1-3 ft',
+    maintenance: 'low',
+    description: 'Native wildflower with bright yellow petals and dark centers.',
+    benefits: ['Native species', 'Drought tolerant', 'Butterfly magnet'],
+    imageKeyword: 'black eyed susan wildflower',
+  },
+  {
+    id: 'bermuda-grass',
+    name: 'Bermuda Grass',
+    scientificName: 'Cynodon dactylon',
+    type: 'grass',
+    zones: ['7a', '7b', '8a', '8b', '9a', '9b', '10a', '10b'],
+    climates: ['humid_subtropical', 'arid', 'semi_arid', 'tropical'],
+    waterNeeds: 'low',
+    sunlight: 'full_sun',
+    nativeRegions: ['Africa'],
+    height: '6-12 in',
+    maintenance: 'moderate',
+    description: 'Tough warm-season grass ideal for hot, sunny yards.',
+    benefits: ['Drought tolerant', 'Heat resistant', 'Self-repairing'],
+    imageKeyword: 'bermuda grass lawn green',
+  },
+  {
+    id: 'purple-coneflower',
+    name: 'Purple Coneflower',
+    scientificName: 'Echinacea purpurea',
+    type: 'perennial',
+    zones: ['3a', '3b', '4a', '4b', '5a', '5b', '6a', '6b', '7a', '7b', '8a', '8b', '9a'],
+    climates: ['continental', 'humid_subtropical', 'semi_arid'],
+    waterNeeds: 'low',
+    sunlight: 'full_sun',
+    nativeRegions: ['Central & Eastern US'],
+    bloomSeason: 'Summer-Fall',
+    height: '2-4 ft',
+    maintenance: 'low',
+    description: 'Beloved native prairie flower with daisy-like purple blooms.',
+    benefits: ['Native species', 'Pollinator magnet', 'Winter bird food'],
+    imageKeyword: 'purple coneflower echinacea garden',
+  },
+  {
+    id: 'texas-sage',
+    name: 'Texas Sage',
+    scientificName: 'Leucophyllum frutescens',
+    type: 'shrub',
+    zones: ['7b', '8a', '8b', '9a', '9b', '10a', '10b'],
+    climates: ['arid', 'semi_arid'],
+    waterNeeds: 'low',
+    sunlight: 'full_sun',
+    nativeRegions: ['Texas', 'New Mexico', 'Mexico'],
+    bloomSeason: 'Summer-Fall',
+    height: '4-8 ft',
+    maintenance: 'low',
+    description: 'Silver-leafed desert shrub that bursts into purple blooms after rain.',
+    benefits: ['Extreme drought tolerance', 'Low maintenance', 'Wildlife habitat'],
+    imageKeyword: 'texas sage purple desert shrub',
+  },
+  {
+    id: 'hydrangea',
+    name: 'Bigleaf Hydrangea',
+    scientificName: 'Hydrangea macrophylla',
+    type: 'shrub',
+    zones: ['5b', '6a', '6b', '7a', '7b', '8a', '8b', '9a'],
+    climates: ['continental', 'humid_subtropical', 'oceanic'],
+    waterNeeds: 'high',
+    sunlight: 'part_shade',
+    nativeRegions: ['Japan'],
+    bloomSeason: 'Summer',
+    height: '3-6 ft',
+    maintenance: 'moderate',
+    description: 'Classic garden shrub with large mophead blooms in blue, pink, or white.',
+    benefits: ['Spectacular blooms', 'pH-responsive color', 'Cottage garden appeal'],
+    imageKeyword: 'hydrangea blue pink flowers',
+  },
+  {
+    id: 'crepe-myrtle',
+    name: 'Crape Myrtle',
+    scientificName: 'Lagerstroemia indica',
+    type: 'tree',
+    zones: ['6a', '6b', '7a', '7b', '8a', '8b', '9a', '9b', '10a'],
+    climates: ['humid_subtropical', 'semi_arid'],
+    waterNeeds: 'low',
+    sunlight: 'full_sun',
+    nativeRegions: ['China', 'Korea'],
+    bloomSeason: 'Summer',
+    height: '10-25 ft',
+    maintenance: 'low',
+    description: 'Southern landscape staple with long-lasting summer blooms and attractive bark.',
+    benefits: ['Summer color', 'Interesting bark', 'Heat tolerant'],
+    imageKeyword: 'crepe myrtle pink flowers tree',
+  },
+  {
+    id: 'lavender',
+    name: 'English Lavender',
+    scientificName: 'Lavandula angustifolia',
+    type: 'perennial',
+    zones: ['5a', '5b', '6a', '6b', '7a', '7b', '8a'],
+    climates: ['mediterranean', 'semi_arid', 'continental'],
+    waterNeeds: 'low',
+    sunlight: 'full_sun',
+    nativeRegions: ['Mediterranean'],
+    bloomSeason: 'Summer',
+    height: '1-2 ft',
+    maintenance: 'low',
+    description: 'Fragrant perennial herb with silvery foliage and purple flower spikes.',
+    benefits: ['Fragrant', 'Drought tolerant', 'Bee magnet', 'Deer resistant'],
+    imageKeyword: 'english lavender purple field',
+  },
+  {
+    id: 'fescue-grass',
+    name: 'Tall Fescue',
+    scientificName: 'Festuca arundinacea',
+    type: 'grass',
+    zones: ['4a', '4b', '5a', '5b', '6a', '6b', '7a', '7b'],
+    climates: ['continental', 'oceanic'],
+    waterNeeds: 'moderate',
+    sunlight: 'part_shade',
+    nativeRegions: ['Europe'],
+    height: '3-4 in (mowed)',
+    maintenance: 'moderate',
+    description: 'Adaptable cool-season grass that tolerates shade and heat better than other fescues.',
+    benefits: ['Shade tolerant', 'Deep roots', 'Stays green in mild winters'],
+    imageKeyword: 'tall fescue lawn green thick',
+  },
+  {
+    id: 'japanese-maple',
+    name: 'Japanese Maple',
+    scientificName: 'Acer palmatum',
+    type: 'tree',
+    zones: ['5b', '6a', '6b', '7a', '7b', '8a'],
+    climates: ['continental', 'humid_subtropical', 'oceanic'],
+    waterNeeds: 'moderate',
+    sunlight: 'part_shade',
+    nativeRegions: ['Japan', 'Korea', 'China'],
+    height: '6-25 ft',
+    maintenance: 'low',
+    description: 'Elegant specimen tree with delicate, lacy foliage in rich reds and greens.',
+    benefits: ['Year-round beauty', 'Fall color', 'Focal point'],
+    imageKeyword: 'japanese maple red fall tree',
+  },
+  {
+    id: 'butterfly-bush',
+    name: 'Butterfly Bush',
+    scientificName: 'Buddleja davidii',
+    type: 'shrub',
+    zones: ['5a', '5b', '6a', '6b', '7a', '7b', '8a', '8b', '9a'],
+    climates: ['continental', 'humid_subtropical', 'semi_arid'],
+    waterNeeds: 'low',
+    sunlight: 'full_sun',
+    nativeRegions: ['China'],
+    bloomSeason: 'Summer-Fall',
+    height: '6-12 ft',
+    maintenance: 'low',
+    description: 'Fast-growing shrub with long fragrant flower spikes that attract butterflies.',
+    benefits: ['Butterfly magnet', 'Long blooming', 'Fragrant'],
+    imageKeyword: 'butterfly bush purple lilac',
+  },
+  {
+    id: 'agave',
+    name: 'Century Plant Agave',
+    scientificName: 'Agave americana',
+    type: 'perennial',
+    zones: ['8a', '8b', '9a', '9b', '10a', '10b', '11a'],
+    climates: ['arid', 'semi_arid'],
+    waterNeeds: 'low',
+    sunlight: 'full_sun',
+    nativeRegions: ['Mexico', 'Southwest US'],
+    height: '4-6 ft',
+    maintenance: 'low',
+    description: 'Dramatic succulent with bold architectural presence and extreme drought tolerance.',
+    benefits: ['Extreme drought tolerance', 'Architectural interest', 'Wildlife value'],
+    imageKeyword: 'agave succulent desert garden',
+  },
+  {
+    id: 'hostas',
+    name: 'Hosta',
+    scientificName: 'Hosta spp.',
+    type: 'perennial',
+    zones: ['3a', '3b', '4a', '4b', '5a', '5b', '6a', '6b', '7a', '7b', '8a'],
+    climates: ['continental', 'humid_subtropical', 'oceanic'],
+    waterNeeds: 'moderate',
+    sunlight: 'full_shade',
+    nativeRegions: ['Japan', 'China', 'Korea'],
+    bloomSeason: 'Summer',
+    height: '1-4 ft',
+    maintenance: 'low',
+    description: 'The ultimate shade garden perennial with bold, textured foliage.',
+    benefits: ['Shade tolerant', 'Low maintenance', 'Diverse varieties'],
+    imageKeyword: 'hosta shade garden blue green',
+  },
+]
+
+export function getPlantsByState(stateName: string): Plant[] {
+  const stateData = STATE_CLIMATES.find(s => s.state === stateName || s.abbreviation === stateName)
+  if (!stateData) return []
+
+  return PLANTS.filter(plant => {
+    const zoneMatch = plant.zones.some(z => stateData.zones.includes(z))
+    const climateMatch = plant.climates.includes(stateData.climate)
+    return zoneMatch && climateMatch
+  })
+}
+
+export function getStateByName(name: string): StateClimate | undefined {
+  return STATE_CLIMATES.find(s => s.state === name || s.abbreviation === name)
+}
