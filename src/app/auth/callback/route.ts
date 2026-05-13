@@ -6,8 +6,10 @@ export async function GET(request: NextRequest) {
   const code = searchParams.get('code')
   const next = searchParams.get('next') ?? '/dashboard'
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? origin
+
   if (code) {
-    const redirectTo = new URL(next, origin)
+    const redirectTo = new URL(next, siteUrl)
     const response = NextResponse.redirect(redirectTo)
 
     const supabase = createServerClient(
@@ -33,5 +35,5 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  return NextResponse.redirect(new URL('/login?error=auth_failed', origin))
+  return NextResponse.redirect(new URL('/login?error=auth_failed', siteUrl))
 }
