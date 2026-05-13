@@ -58,25 +58,18 @@ export async function POST(request: NextRequest) {
       ? claudeResponse.content[0].text
       : `Photorealistic professional landscape design, ${stylePrompt}, ${state} USA, bright natural lighting, high quality photography`
 
-    const hfResponse = await fetch(
-      'https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell',
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${process.env.HUGGING_FACE_API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ inputs: enhancedPrompt }),
-      }
+    const encodedPrompt = encodeURIComponent(enhancedPrompt)
+    const imageResponse = await fetch(
+      `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1360&height=768&model=flux&nologo=true&enhance=true`,
+      { method: 'GET' }
     )
 
-    if (!hfResponse.ok) {
-      const errText = await hfResponse.text()
-      console.error('HuggingFace error:', errText)
+    if (!imageResponse.ok) {
+      console.error('Pollinations error:', imageResponse.status, await imageResponse.text())
       return NextResponse.json({ error: 'Image generation failed' }, { status: 500 })
     }
 
-    const buffer = Buffer.from(await hfResponse.arrayBuffer())
+    const buffer = Buffer.from(await imageResponse.arrayBuffer())
     const fileName = `${user.id}/${Date.now()}.png`
 
     const storageClient = createServerClient(
