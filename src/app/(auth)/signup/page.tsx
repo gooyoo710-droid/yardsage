@@ -44,10 +44,9 @@ export default function SignupPage() {
   }
 
   async function handleGoogleLogin() {
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin
     await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: `${siteUrl}/auth/callback` },
+      options: { redirectTo: 'https://trgmstwuiwfyrwabapbn.supabase.co/auth/v1/callback' },
     })
   }
 
