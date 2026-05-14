@@ -3,7 +3,7 @@ import Anthropic from '@anthropic-ai/sdk'
 import { createClient } from '@/lib/supabase/server'
 import { createServerClient } from '@supabase/ssr'
 
-export const maxDuration = 60
+export const maxDuration = 120
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
@@ -66,13 +66,25 @@ export async function POST(request: NextRequest) {
       : `Photorealistic professional interior design, ${roomPrompt}, ${stylePrompt}, perfect lighting, high quality photography`
 
     const encodedPrompt = encodeURIComponent(enhancedPrompt)
-    const imageResponse = await fetch(
-      `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1360&height=768&model=flux&nologo=true&enhance=true`,
-      { method: 'GET' }
-    )
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 90_000)
+
+    let imageResponse: Response
+    try {
+      imageResponse = await fetch(
+        `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1360&height=768&model=flux&nologo=true`,
+        { method: 'GET', signal: controller.signal }
+      )
+    } catch (fetchErr) {
+      console.error('Pollinations fetch error:', fetchErr)
+      return NextResponse.json({ error: 'Image generation failed' }, { status: 500 })
+    } finally {
+      clearTimeout(timeout)
+    }
 
     if (!imageResponse.ok) {
-      console.error('Pollinations error:', imageResponse.status, await imageResponse.text())
+      const body = await imageResponse.text().catch(() => '')
+      console.error('Pollinations error:', imageResponse.status, body)
       return NextResponse.json({ error: 'Image generation failed' }, { status: 500 })
     }
 
