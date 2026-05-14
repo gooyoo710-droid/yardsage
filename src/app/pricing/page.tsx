@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { Check, Zap, Sparkles } from 'lucide-react'
 import Button from '@/components/ui/Button'
 import { Card, CardContent } from '@/components/ui/Card'
-import { PLANS } from '@/lib/stripe'
+import { PLANS } from '@/lib/plans'
 
 const FREE_FEATURES = PLANS.free.features
 const PRO_FEATURES = PLANS.pro.features

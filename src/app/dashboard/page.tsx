@@ -6,7 +6,7 @@ import { Sparkles, Plus, Crown, MapPin, Calendar, ImageIcon } from 'lucide-react
 import Button from '@/components/ui/Button'
 import { Card, CardContent } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
-import { PLANS } from '@/lib/stripe'
+import { PLANS } from '@/lib/plans'
 
 export default async function DashboardPage({
   searchParams,
