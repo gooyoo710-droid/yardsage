@@ -28,10 +28,12 @@ export default function Navbar({ user }: NavbarProps) {
     ? [
         { href: '/dashboard', label: 'Dashboard' },
         { href: '/garden/new', label: 'New Design' },
+        { href: '/interior', label: 'Interior Design' },
         { href: '/plants', label: 'Plant Guide' },
         { href: '/pricing', label: 'Pricing' },
       ]
     : [
+        { href: '/interior', label: 'Interior Design' },
         { href: '/plants', label: 'Plant Guide' },
         { href: '/pricing', label: 'Pricing' },
       ]
