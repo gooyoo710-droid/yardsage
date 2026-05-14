@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
+import Link from 'next/link'
 import { Search, MapPin, Droplets, Sun, ChevronDown } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
@@ -182,7 +183,9 @@ export default function PlantsPage() {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {plants.map(plant => (
-            <PlantCard key={plant.id} plant={plant} />
+            <Link key={plant.id} href={`/plants/${plant.id}`}>
+              <PlantCard plant={plant} />
+            </Link>
           ))}
         </div>
       )}
