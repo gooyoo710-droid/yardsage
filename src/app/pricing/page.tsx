@@ -13,6 +13,7 @@ const PRO_FEATURES = PLANS.pro.features
 export default function PricingPage() {
   const [billing, setBilling] = useState<'monthly' | 'yearly'>('monthly')
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
   const router = useRouter()
 
   const price = billing === 'monthly' ? PLANS.pro.monthlyPrice : Math.round(PLANS.pro.yearlyPrice / 12)
@@ -20,6 +21,7 @@ export default function PricingPage() {
 
   async function handleUpgrade() {
     setLoading(true)
+    setError('')
     try {
       const res = await fetch('/api/stripe/checkout', {
         method: 'POST',
@@ -31,7 +33,13 @@ export default function PricingPage() {
         router.push('/login')
         return
       }
-      if (data.url) window.location.href = data.url
+      if (!res.ok || !data.url) {
+        setError(data.error || 'Checkout failed. Please try again.')
+        return
+      }
+      window.location.href = data.url
+    } catch {
+      setError('Something went wrong. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -122,6 +130,11 @@ export default function PricingPage() {
                 </li>
               ))}
             </ul>
+            {error && (
+              <div className="mb-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3">
+                {error}
+              </div>
+            )}
             <Button className="w-full" size="lg" onClick={handleUpgrade} loading={loading}>
               <Sparkles className="w-4 h-4" />
               Upgrade to Pro
