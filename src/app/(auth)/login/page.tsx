@@ -35,7 +35,7 @@ export default function LoginPage() {
   async function handleGoogleLogin() {
     await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: 'https://trgmstwuiwfyrwabapbn.supabase.co/auth/v1/callback' },
+      options: { redirectTo: 'https://yardsage.vercel.app/auth/callback' },
     })
   }
 
